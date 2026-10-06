@@ -93,14 +93,13 @@
     </div>
     
     <div class="acoes-estoque-container">
-
     <div class="botoes-alinhados-grupo">
         
         <a href="/estoque/exportar" class="btn btn-primary btn-link-exportar">
           <!-- Chamar a rota do Python -->
             Exportar Estoque (CSV)
         </a>
-
+{% if session.get('eh_admin') %}
         <form action="/estoque/zerar" method="POST">
           <!-- Abre um formulário focado nessa rota/ envia uma requisição oculta e segura para o servidor -->
             <button type="submit" class="btn btn-danger">
@@ -116,9 +115,8 @@
             <input type="file" name="arquivo_csv" id="arquivo_csv" accept=".csv" required>
             <button type="submit" class="btn btn-success">Enviar CSV</button>
         </form>
-        
+{% endif %}
     </div>
-
 </div>
 
 </body>

@@ -19,7 +19,7 @@ export default function CadUserScreen() {
   const [carregando, setCarregando] = useState(false);
 
   const router = useRouter();
-  const API_URL = 'http://10.154.20.63:5000';
+  const API_URL = 'http://10.154.20.134:5000';
 
   const handleCadastrarUsuario = async () => {
     if (!novoUsuario.trim() || !novaSenha.trim()) {

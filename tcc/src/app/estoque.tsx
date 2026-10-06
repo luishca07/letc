@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
   Platform,
+  Image,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,6 +16,10 @@ export default function EstoqueScreen() {
   const router = useRouter();
   const [isAdmin, setIsAdmin] = useState(false);
   const [busca, setBusca] = useState('');
+  const [itens, setItens] = useState([]);
+
+  // Endereço do servidor Flask
+  const API_URL = 'http://10.154.20.134:5000';
 
   useEffect(() => {
     async function verificarPermissaoAdmin() {
@@ -31,7 +36,20 @@ export default function EstoqueScreen() {
       }
     }
 
+    async function buscarEstoque() {
+      try {
+        const resposta = await fetch(`${API_URL}/api/estoque`);
+        const dados = await resposta.json();
+        if (resposta.ok) {
+          setItens(dados);
+        }
+      } catch (error) {
+        console.log('Erro ao buscar stock:', error);
+      }
+    }
+
     verificarPermissaoAdmin();
+    buscarEstoque();
   }, []);
 
   const handleSair = async () => {
@@ -43,6 +61,10 @@ export default function EstoqueScreen() {
       router.replace('/');
     }
   };
+
+  const itensFiltrados = itens.filter(item =>
+    item.nome.toLowerCase().includes(busca.toLowerCase())
+  );
 
   return (
     <View style={styles.container}>
@@ -90,6 +112,35 @@ export default function EstoqueScreen() {
             value={busca}
             onChangeText={setBusca}
           />
+        </View>
+
+        {/* Lista de Itens do Stock */}
+        <View style={{ marginTop: 15 }}>
+          {itensFiltrados.map((item) => (
+            <View 
+              key={item.id} 
+              style={{ 
+                flexDirection: 'row', 
+                backgroundColor: '#FFFFFF', 
+                padding: 12, 
+                borderRadius: 8, 
+                marginBottom: 10, 
+                alignItems: 'center', 
+                borderWidth: 1, 
+                borderColor: '#ddd' 
+              }}
+            >
+              <Image
+                source={{ uri: `${API_URL}/static/imagens_produtos/${item.imagem}` }}
+                style={{ width: 55, height: 55, borderRadius: 6, marginRight: 15, backgroundColor: '#eee' }}
+              />
+              <View style={{ flex: 1 }}>
+                <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#333' }}>{item.nome}</Text>
+                <Text style={{ fontSize: 14, color: '#666', marginTop: 2 }}>Tipo: {item.tipo}</Text>
+                <Text style={{ fontSize: 14, color: '#666', marginTop: 2 }}>Quantidade: {item.qntd}</Text>
+              </View>
+            </View>
+          ))}
         </View>
       </ScrollView>
     </View>

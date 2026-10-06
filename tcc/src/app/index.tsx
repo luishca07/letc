@@ -23,7 +23,7 @@ export default function LoginScreen() {
   const router = useRouter();
   
   // Substitua pelo endereço IP real do seu computador (obtido via ipconfig)
-  const API_URL = 'http://10.154.20.63:5000';
+  const API_URL = 'http://10.154.20.134:5000';
 
   const handleLogin = async () => {
     if (!usuario.trim() || !senha.trim()) {

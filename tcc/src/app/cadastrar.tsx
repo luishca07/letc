@@ -8,7 +8,7 @@ export default function CadastrarScreen() {
   const [tipo, setTipo] = useState('');
   const router = useRouter();
 
-  const API_URL = 'http://10.154.20.63:5000';
+  const API_URL = 'http://10.154.20.134:5000';
 
   const handleCadastrar = async () => {
     if (!nome || !qntd || !tipo) {

@@ -107,42 +107,44 @@ def historico():
     return render_template('/pag.historico/historico.html', resultado=dados_historico)
 
 @app.route('/cadastro', methods=['POST', 'GET'])
-def cadastro():
 
+def cadastro():
     # Trava do Admin
     if not session.get('eh_admin'):
         return redirect('/estoque')
-    
 
     if request.method == 'POST':
         conexao = conectar_bd()
         dado_name = request.form['nome']
         dado_qntd = request.form['qntd']
         dado_tipo = request.form['tipo']
-        
         arquivo_imagem = request.files['img']
 
         if arquivo_imagem and arquivo_imagem.filename != '':
             nome_arquivo = arquivo_imagem.filename
+            
+            # Garante que a pasta de destino existe (cria se não existir)
+            os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+            
             caminho_completo = os.path.join(app.config['UPLOAD_FOLDER'], nome_arquivo)
             arquivo_imagem.save(caminho_completo)
         else:
             nome_arquivo = 'sem_foto.png'
         
+        # --- ESTA PARTE FICA FORA DO IF/ELSE (alinhada com o 'if') ---
         cursor = conexao.cursor()
         query = """
             INSERT INTO estoque (nome, qntd, tipo, imagem) 
             VALUES (%s, %s, %s, %s)
         """
         valores = (dado_name, dado_qntd, dado_tipo, nome_arquivo)
-        
         cursor.execute(query, valores)
         conexao.commit()
         cursor.close()
         conexao.close()
         print("Item e foto cadastrados com sucesso!")
-        
-    return render_template('/pag.cadastro/cad.html')
+
+    return render_template('/pag.cadastro/cad.html') 
 
 @app.route('/estoque', methods=['GET', 'POST'])
 def estoque():
@@ -708,7 +710,7 @@ def api_adm_login():
     # Responde imediatamente à requisição OPTIONS do navegador (Preflight CORS)
     if request.method == 'OPTIONS':
         return jsonify({}), 200
-
+    
     try:
         dados = request.json or {}
         usuario = dados.get('usuario')
@@ -749,7 +751,4 @@ def api_adm_login():
         return jsonify({"erro": str(e)}), 500
     
 if __name__ == '__main__':
-
     app.run(host='0.0.0.0', debug=True, port=5000)
-
-
