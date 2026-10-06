@@ -1,0 +1,40 @@
+FAZER FUNCIONAR NO DOCKER
+
+docker network create minha_rede
+docker run -d --name db_almoxarife --network minha_rede -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=almoxarifado mysql:8.0
+Get-Content schemas.sql | docker exec -i db_almoxarife mysql -u root almoxarifado
+docker build -t imagem_almoxarifado .
+docker run -d --name app_almoxarifado --network minha_rede -p 8080:8080 imagem_almoxarifado
+docker rm -f db_almoxarife app_almoxarifado APAGAR docker rm -f app_almoxarifado
+http://localhost:8080/pag.login/login.html
+
+SUBIR NO DOKER HUB
+
+docker login
+docker tag imagem_almoxarifado luisbacana/imagem_almoxarifado:v1
+docker push luisbacana/imagem_almoxarifado:v1
+docker run -d --name app_almoxarifado -p 8080:8080 luisbacana/imagem_almoxarifado:v1
+
+
+DOCKER COMPOSE 
+
+docker compose up -d --build
+
+PARA PEGAR O BANCO
+
+Get-Content schemas.sql | docker exec -i db_almoxarife mysql -u root almoxarifado
+
+VERSOES
+
+lastest serve para pegar a versão mais recente
+
+docker build -t luisbacana/imagem_almoxarifado:v2 .
+(Note que mudamos a tag para :v2 para manter histórico, ou você pode usar :latest se quiser sobrescrever a principal).
+
+Envie a nova versão para o Docker Hub:
+docker push luisbacana/imagem_almoxarifado:v2
+
+# Compila e marca como a mais recente
+docker build -t luisbacana/imagem_almoxarifado:latest .
+
+# Envia sobrescrevendo a versão mais recente no Docker Hub

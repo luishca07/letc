@@ -1,0 +1,76 @@
+body{
+/* Imagem de Fundo */
+    background-image: url(../img.login/fundotop.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    
+}
+#img{
+    position: absolute;
+    left: 700px;
+    top: 200px;
+    border-radius: 50%;
+
+
+}
+#bot{
+    height: 70px;
+    width: 400px;
+    position: absolute;
+    top: 610px;
+    left: 745px;
+    border-color: #ff9500;
+    background-color: #ff9500;
+    color:white;
+    border-radius: 10px;
+    font-size: 35px;
+    font-style: italic;
+}
+#usu{
+    height: 50px;
+    width: 400px;
+    position: absolute;
+    top: 390px;
+    left: 740px;
+    font-size: 30px;
+    border-radius: 10px;
+    border: 3px solid #e9edefc9; 
+}
+#senha{
+    height: 50px;
+    width: 400px;
+    position: absolute;
+    top: 490px;
+    left: 740px;
+    font-size: 30px;
+    border-radius: 10px;
+    border: 3px solid #e9edefc9; 
+}
+#bot1{
+    height: 50px;
+    width: 125px;
+    position: absolute;
+    top: 870px;
+    left: 20px;
+    border-color: #ff9500;
+    background-color: #ff9500;
+    color:white;
+    border-radius: 10px;
+    font-size: 25px;
+    font-style: italic;
+
+
+}
+#txt{
+    position: absolute;
+    left: 710px;
+    top: 250px;
+    color: white;
+    font-size: 50px;
+    font-style: italic;
+    
+
+
+}

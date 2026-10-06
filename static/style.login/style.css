@@ -1,0 +1,64 @@
+body{
+/* Imagem de Fundo */
+    background-image: url(../img.login/fundo2.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    
+}
+    
+input {
+  border: 2px solid;
+  border-radius: 10px;
+  padding: 5px;
+}
+#Almoxarifado{
+    text-align: center;
+    color:black;
+    font-size: 40px;
+
+}
+#caixas{
+    text-align: center;
+    font-size: 25px;
+    position: absolute;
+    top: 400px;
+    border-radius: 10px;
+    left: 1250px;
+}
+#Entrar{
+    text-align: center;
+    position: absolute;
+    top: 650px;
+    border-radius: 10px;
+    left: 1330px;
+    font-style: italic;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.4);
+}
+#linha{
+    text-align: center;
+    position: absolute;
+    top: 150px;
+    left: 1200px;
+    
+}
+#cad{
+ text-align: center;
+    position: absolute;
+    top: 725px;
+    left: 1380px;
+  color: white;
+
+}
+.link {
+    color: white;
+}
+#cad1{
+ text-align: center;
+    position: absolute;
+    top: 750px;
+    left: 1405px;
+  color: white;
+
+}

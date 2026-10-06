@@ -1,0 +1,38 @@
+http://localhost:5000/api/estoque
+POST
+body - raw - JSON
+
+{
+    "nome": "Motor Elétrico",
+    "qntd": 5,
+    "tipo": "Equipamento",
+    "imagem": "motor.png"
+}
+--------------------------------------------------------------------------
+
+http://localhost:5000/api/cadastrar-usuario
+POST
+body - form_data
+
+KEY	VALUE
+usuario	joao
+senha	123456
+--------------------------------------------------------------------------
+
+http://localhost:5000/api/cadastrar
+POST
+body - form_data
+
+KEY	VALUE	Tipo
+nome	Motor Elétrico	Text
+qntd	5	Text
+tipo	Equipamento	Text
+img	escolha uma imagem	File
+----------------------------------------------------------------------------
+
+http://localhost:5000/api/historico
+GET
+----------------------------------------------------------------------------
+
+http://localhost:5000/api/estoque/1  (id do item)
+DELETE

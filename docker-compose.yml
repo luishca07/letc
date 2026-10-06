@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  # Serviço do Banco de Dados
+  db_almoxarifado:
+    image: mysql:8.0
+    container_name: db_almoxarifado
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "almoxarifado"
+    volumes:
+      - ./schemas.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - mysql_data:/var/lib/mysql
+    networks:
+      - minha_rede
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -proot --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  # Serviço da Aplicação Flask
+  app_almoxarifado:
+    build: .
+    container_name: app_almoxarifado
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: db_almoxarifado
+      DB_PASSWORD: root
+    depends_on:
+      db_almoxarifado:
+        condition: service_healthy
+    networks:
+      - minha_rede
+
+networks:
+  minha_rede:
+    driver: bridge
+
+volumes:
+  mysql_data:

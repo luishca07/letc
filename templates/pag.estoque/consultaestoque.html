@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/style.estoq/style2.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../static/style.estoq/style2.js"></script>
+    <title>Estoque</title>
+</head>
+<body>
+
+ <nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Almoxarifado</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <li class="nav-item">
+          <a class="nav-link active" href="/estoque">Estoque</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/solicitacoes">
+            Solicitar
+          </a>
+        </li>
+
+        {% if session.get('eh_admin') %}
+          <li class="nav-item">
+            <a class="nav-link" href="/caduser">Cadastrar Usuário</a>
+          </li>
+        {% endif %}
+
+        {% if session.get('eh_admin') %}
+            <li class="nav-item">
+              <a class="nav-link" href="/cadastro">Cadastrar</a>
+            </li>
+        {% endif %}
+        <li class="nav-item">
+          <a class="nav-link" href="/devolver">Devolver</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link" href="/historico">Histórico</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/vampetinhIA">VampetinIA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../pag.login/login.html">Sair</a>
+        </li>
+
+      </ul>
+      <div class="container-busca">
+        <span class="icone-busca">🔍</span>
+        <input type="text" id="campoBusca" class="input-busca" onkeyup="filtrarTabela()" placeholder="Pesquisar item...">
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="table-container">
+        <table class="tabela-premium" id="tabelaDados">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Qntd</th>
+                    <th>Tipo</th>
+                    <th>Imagem</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for item in resultado %}
+              <tr>
+                <td>{{ item[0] }}</td> <td>{{ item[1] }}</td> <td>{{ item[2] }}</td> <td>{{ item[3] }}</td> <td>
+                  <img src="{{ url_for('static', filename='imagens_produtos/' + item[4]) }}" 
+                      alt="Imagem de {{ item[1] }}" 
+                      style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px; cursor: pointer;"
+                      onclick="ampliarImagem(this.src)">
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="acoes-estoque-container">
+
+    <div class="botoes-alinhados-grupo">
+        
+        <a href="/estoque/exportar" class="btn btn-primary btn-link-exportar">
+          <!-- Chamar a rota do Python -->
+            Exportar Estoque (CSV)
+        </a>
+
+        <form action="/estoque/zerar" method="POST">
+          <!-- Abre um formulário focado nessa rota/ envia uma requisição oculta e segura para o servidor -->
+            <button type="submit" class="btn btn-danger">
+                Limpar Todo o Estoque
+            </button>
+        </form>
+
+        <div class="divisor-vertical"></div>
+
+        <form action="/estoque/importar" method="POST" enctype="multipart/form-data" class="form-inline-botoes form-importar-inline">
+          <!-- Abre o formulário que vai enviar o arquivo CSV para o Python nessa rota/ avisa ao navegador que esse formulário não vai enviar textos comuns, mas sim um arquivo binário pesado -->
+            <label for="arquivo_csv" class="label-importar">Importar:</label>
+            <input type="file" name="arquivo_csv" id="arquivo_csv" accept=".csv" required>
+            <button type="submit" class="btn btn-success">Enviar CSV</button>
+        </form>
+        
+    </div>
+
+</div>
+
+</body>
+<div id="meuModal" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); justify-content: center; align-items: center;">
+    
+    <span onclick="fecharImagem()" style="position: absolute; top: 20px; right: 35px; color: white; font-size: 40px; font-weight: bold; cursor: pointer; user-select: none;">&times;</span>
+    
+    <img id="imagemGrande" style="max-width: 80%; max-height: 80%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+</div>
+</html>

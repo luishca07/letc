@@ -1,0 +1,219 @@
+body{
+    background-color: white;
+}
+
+.container-fluid {
+    background-color: #192a6b;
+    padding: 15px;
+}
+
+/* links da navbar */
+.navbar .nav-link {
+    color: white !important;
+}
+
+/* nome Almoxarifado */
+.navbar .navbar-brand {
+    color: white !important;
+}
+
+/* link ativo */
+.navbar .nav-link.active {
+    color: white !important;
+}
+
+/* hover */
+.navbar .nav-link:hover,
+.navbar .navbar-brand:hover {
+    color: #dcdcdc !important;
+}
+.navbar {
+    margin: 0;
+    padding: 0;
+}
+.navbar .nav-link {
+    color: white !important;
+    position: relative;
+}
+
+/* página ativa */
+.navbar .nav-link.active {
+    color: white !important;
+}
+
+/* traço embaixo */
+.navbar .nav-link.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+}
+body {
+    margin: 0;             
+    height: 100vh;          
+    display: flex;          
+    flex-direction: column; 
+    /* Colocar os itens um embaixo do outro */
+    flex: 1;
+  }
+   
+  .estoque-baixo {
+    /* Mudar a cor do estoque se estiver menor que 5 */
+    background-color:rgba(255, 0, 0, 0.596);
+    color: white;
+}
+
+
+/* CONTAINER RESPONSIVO */
+.table-container {
+    overflow-x: auto;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    border-radius: 0px;
+    background-color: #fff;
+    margin: 0px 0; /* Margem opcional para afastar de outros elementos */
+}
+
+/* A TABELA */
+.tabela-premium {
+    border-collapse: collapse;
+    min-width: 600px;
+    width: 100%;
+    font-size: 0.9rem;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+/* Cabeçalho */
+.tabela-premium thead tr {
+    background-color: #192a6b; /* Altere para a cor da sua identidade */
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+
+}
+
+/* Células */
+.tabela-premium th,
+.tabela-premium td {
+    padding: 14px 20px;
+}
+
+/* Linhas do corpo */
+.tabela-premium tbody tr {
+    border-bottom: 1px solid #dddddd;
+    transition: background-color 0.2s ease;
+}
+
+/* Efeito Zebra */
+.tabela-premium tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+/* Última linha */
+.tabela-premium tbody tr:last-of-type {
+    border-bottom: 3px solid #192a6b;
+}
+
+/* Efeito Hover */
+.tabela-premium tbody tr:hover {
+    background-color: #e3e7f3e7;
+    cursor: pointer;
+}
+
+/* Tags de Status */
+.status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+.status.ativo { background-color: #e9edef; color: #e9edef; }
+.status.pendente { background-color: #fff3cd; color: #856404; };
+
+
+#Titulo{
+    text-align: center;
+    position: absolute;
+    color:white;
+    left: 640px;
+    font-style: italic;
+}
+
+.acoes-estoque-container {
+    margin-top: 15px;
+    padding: 10px 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Alinha absolutamente tudo em uma única linha horizontal */
+.botoes-alinhados-grupo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px; /* Espaçamento igual entre os botões */
+    flex-wrap: wrap; /* Se a tela encolher demais, eles quebram linha para não sumir */
+}
+
+/* Garante que os formulários se comportem como botões comuns na linha */
+.form-inline-botoes {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Remove a linha sublinhada do link de exportar */
+.btn-link-exportar {
+    text-decoration: none;
+    background-color: #192a6b;
+    border-color: #192a6b;
+}
+
+/* Estilização do texto "Importar:" */
+.label-importar {
+    font-weight: bold;
+    white-space: nowrap; /* Evita que a palavra quebre em duas linhas */
+}
+
+/* Uma barrinha para separar o bloco de "Importar" dos botões de ação rápida */
+.divisor-vertical {
+    width: 1px;
+    height: 25px;
+    background-color: #ccc;
+    margin: 0 5px;
+<<<<<<< HEAD
+}
+
+.container-busca-nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto; /* Empurra o campo totalmente para a direita */
+}
+
+.input-busca-nav {
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    outline: none;
+    font-size: 0.9rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.input-busca-nav::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.input-busca-nav:focus {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+=======
+>>>>>>> b1bfbd5f16f94a9e4aff50e2c40c8d146bcdc21b
+}

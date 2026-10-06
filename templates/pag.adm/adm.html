@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../static/style.adm/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../static/style.adm/style.js"></script>
+    <title>Painel de Controle - Login Admin</title>
+</head>
+<body>
+    <div id="txt">
+    <h1 style="font-size: larger;">Entrar como ADM</h1>
+</div>
+
+
+    <form action="/adm" method="POST">
+        <input type="text" name="usuario" required id="usu" placeholder="Usuário"><br><br>
+
+       
+         <input type="password" name="senha" required id="senha" placeholder="Senha"><br><br>
+
+        <button type="submit" id="bot">Acessar Painel</button>
+    </form>
+
+    {% if erro %}
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Acesso Negado',
+                text: 'Usuário ou senha incorretos!',
+                confirmButtonColor: '#192a6b'
+            });
+        </script>
+    {% endif %}
+    
+    <br>
+
+    <a  href="pag.login/login.html"><button type="submit" id="bot1">Voltar</button></a>
+</body>
+</html>

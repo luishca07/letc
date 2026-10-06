@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/style.cad/style.css">
+    <script src="../static/style.cad/style.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Almoxarifado</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <li class="nav-item">
+          <a class="nav-link" href="/estoque">Estoque</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/solicitacoes">
+            Solicitar
+          </a>
+        </li>
+
+        {% if session.get('eh_admin') %}
+          <li class="nav-item">
+            <a class="nav-link" href="/caduser">Cadastrar Usuário</a>
+          </li>
+        {% endif %}
+
+        <li class="nav-item">
+          <a class="nav-link active" href="/cadastro">Cadastrar</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/devolver">Devolver</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/historico">Histórico</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="../pag.login/login.html">Sair</a>
+        </li>
+        <style>
+       
+    </style>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<body>
+    <img src="../../static/img.login/fundotop.png" width="500" height="190" >
+        <h1 id="Titulo">Cadastro de Novos Itens</h1>
+      <br><br>
+
+    <form action="/cadastro" method="POST" enctype="multipart/form-data">
+    
+    <input id="but" type="text" id="nome" name="nome" placeholder="Nome do item" required>
+      <br><br><br>
+    <input id="but2" type="number" id="qntd" name="qntd" placeholder="Quantidade do item" required>
+      <br><br><br>
+    <input id="but3" type="text" id="tipo" name="tipo" placeholder="Tipo do item" required>
+    <br><br><br>
+<div class="upload-container">
+    <input id="but7" type="file" name="img" accept="image/*" placeholder="Imagem">
+    
+    <button type="submit" id="buti">Cadastrar</button>
+</form>
+    
+</body>
+</html>
+
+
