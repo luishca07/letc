@@ -1,3 +1,8 @@
 npm install expo
 npx expo login
 npx expo start
+
+
+git add .
+git commit -m "3"
+git push -u origin main
