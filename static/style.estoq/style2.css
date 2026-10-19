@@ -185,35 +185,11 @@ body {
     height: 25px;
     background-color: #ccc;
     margin: 0 5px;
-<<<<<<< HEAD
 }
 
-.container-busca-nav {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-left: auto; /* Empurra o campo totalmente para a direita */
-}
-
-.input-busca-nav {
-    padding: 6px 12px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    background-color: rgba(255, 255, 255, 0.15);
-    color: #ffffff;
-    outline: none;
-    font-size: 0.9rem;
-    transition: all 0.2s ease-in-out;
-}
-
-.input-busca-nav::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.input-busca-nav:focus {
-    background-color: #ffffff;
-    color: #000000;
-    border-color: #ffffff;
-=======
->>>>>>> b1bfbd5f16f94a9e4aff50e2c40c8d146bcdc21b
+#info{
+    position: absolute;
+    top: 900px;
+    right: 10px;
+    border-radius: 10px;
 }
