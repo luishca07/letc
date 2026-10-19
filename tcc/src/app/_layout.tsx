@@ -12,6 +12,7 @@ export default function RootLayout() {
       <Stack.Screen name="cadastrar" />
       <Stack.Screen name="historico" />
       <Stack.Screen name="caduser" />
+      <Stack.Screen name="ia" />
     </Stack>
   );
 }

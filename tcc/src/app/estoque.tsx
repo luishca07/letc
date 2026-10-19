@@ -173,7 +173,13 @@ export default function EstoqueScreen() {
           <Text style={styles.sairText}>Sair</Text>
         </TouchableOpacity>
       </View>
-
+      {/* Botão para ir para o Assistente IA */}
+      <TouchableOpacity 
+        style={styles.aiButton} 
+        onPress={() => router.push('/ia')}
+      >
+        <Text style={styles.aiButtonText}>Falar com o VampetinhIA</Text>
+      </TouchableOpacity>
       <ScrollView contentContainerStyle={styles.content}>
         {/* BOTÕES LARANJAS: Renderizados apenas se o utilizador for Administrador */}
         {isAdmin && (
@@ -306,6 +312,18 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     paddingBottom: 15,
   },
+  aiButton: {
+  backgroundColor: '#FF8C00', // Mesma cor padrão dos teus botões (laranja)
+  padding: 12,
+  borderRadius: 8,
+  alignItems: 'center',
+  marginVertical: 10,
+},
+aiButtonText: {
+  color: '#FFF',
+  fontWeight: 'bold',
+  fontSize: 16,
+},
   headerTitle: { color: '#FFFFFF', fontSize: 18, fontWeight: 'bold' },
   sairBtn: { padding: 5 },
   sairText: { color: '#FF8C00', fontWeight: 'bold', fontSize: 16 },
