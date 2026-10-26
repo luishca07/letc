@@ -18,6 +18,7 @@ docker run -d --name app_almoxarifado -p 8080:8080 luisbacana/imagem_almoxarifad
 
 DOCKER COMPOSE 
 
+docker login
 docker compose up -d --build
 
 PARA PEGAR O BANCO
