@@ -15,7 +15,7 @@ app.secret_key = os.getenv("SECRET_KEY", "luis")
 
 def conectar_bd():
     return mysql.connector.connect(
-        host=os.getenv('DB_HOST', 'localhost'),  # Mude aqui de 'db_almoxarifado' para 'localhost'
+        host=os.getenv('DB_HOST', 'db_almoxarifado'),  # Mude aqui de 'db_almoxarifado' para 'localhost'
         user='root',
         password=os.getenv('DB_PASSWORD', ''), # Certifique-se de que a senha é a mesma do seu MySQL local
         database='almoxarifado'

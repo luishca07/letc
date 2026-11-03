@@ -1,6 +1,7 @@
 npm install expo
 npx expo login
 npx expo start
+npx expo install --fix --legacy-peer-deps
 
 
 git add .
