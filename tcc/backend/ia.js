@@ -6,8 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = 5001;
-// Configurar a instância do SDK da Groq utilizando a chave de API
+const PORT = 5000;
 const groq = new Groq({ 
   apiKey: "" 
 });
@@ -41,5 +40,5 @@ app.post("/api/chat", async (req, res) => {
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+  console.log(`Servidor a rodar na porta ${PORT}`);
 });

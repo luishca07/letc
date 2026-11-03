@@ -9,7 +9,7 @@ export default function IAScreen() {
   const router = useRouter();
 
   // Endereço do backend atualizado com a porta 5001 e o teu IP local
-  const API_URL = 'http://10.154.20.134:5001';
+  const API_URL = 'http://10.154.20.134:5000';
 
   const enviarMensagem = async () => {
     if (!input) {
