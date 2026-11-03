@@ -6,7 +6,7 @@ Get-Content schemas.sql | docker exec -i db_almoxarife mysql -u root almoxarifad
 docker build -t imagem_almoxarifado .
 docker run -d --name app_almoxarifado --network minha_rede -p 8080:8080 imagem_almoxarifado
 docker rm -f db_almoxarife app_almoxarifado APAGAR docker rm -f app_almoxarifado
-http://localhost:8080/pag.login/login.html
+w
 
 SUBIR NO DOKER HUB
 
