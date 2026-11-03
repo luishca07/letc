@@ -2,7 +2,7 @@
 
 
 const GROQ_API_KEY = ""; 
-
+// Consultar a inteligência artificial da Groq com a dúvida do usuário sobre ferramentas ou itens do almoxarifado
 async function vamp() {
   const perguntaInput = document.getElementById("perguntaInput");
   const respostaDiv = document.getElementById("resultado");
@@ -17,6 +17,7 @@ async function vamp() {
   respostaDiv.innerText = "A consultar o assistente de almoxarifado...";
 
   try {
+// Fazer uma requisição HTTP POST para a API da Groq
     const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -24,7 +25,7 @@ async function vamp() {
         "Authorization": `Bearer ${GROQ_API_KEY}`
       },
       body: JSON.stringify({
-        model: "openai/gpt-oss-20b", // Modelo válido da Groq
+        model: "openai/gpt-oss-20b", // Definir o modelo de inteligência artificial utilizado
         temperature: 0.7,
         max_tokens: 1024,
         messages: [
@@ -41,7 +42,7 @@ async function vamp() {
     });
 
     const data = await response.json();
-
+// Exibir a resposta convertida para Markdown na tela ou mostrar erro caso falhe
     if (data.choices && data.choices[0]) {
       respostaDiv.innerHTML = marked.parse(data.choices[0].message.content);
     } else {
@@ -52,6 +53,7 @@ async function vamp() {
     respostaDiv.innerText = "Erro ao ligar ao assistente de almoxarifado.";
   }
 }
+// Ocultar um elemento da interface alterando sua propriedade de exibição para none
 function ocultarOverlay(elemento) {
   elemento.style.display = 'none';
 }

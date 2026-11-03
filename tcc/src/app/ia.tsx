@@ -43,7 +43,7 @@ export default function IAScreen() {
           Alert.alert('Erro', data.error || 'Falha ao consultar a IA.');
         }
       } catch (e) {
-        // Se cair aqui, o servidor respondeu com HTML (ex: erro de rede/porta)
+        // Se cair aqui, o servidor respondeu com HTML
         console.error('Resposta não-JSON recebida:', textoResposta);
         Alert.alert('Erro de Conexão', 'O servidor não retornou um JSON válido. Verifique se o backend está ativo.');
       }

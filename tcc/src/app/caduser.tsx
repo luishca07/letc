@@ -14,13 +14,14 @@ import {
 import { useRouter } from 'expo-router';
 
 export default function CadUserScreen() {
+// Criar os estados que guardam o nome de usuário, a senha e o status de carregamento
   const [novoUsuario, setNovoUsuario] = useState('');
   const [novaSenha, setNovaSenha] = useState('');
   const [carregando, setCarregando] = useState(false);
 
   const router = useRouter();
   const API_URL = 'http://10.154.20.134:5000';
-
+// Validar os campos e enviar a requisição POST para cadastrar o usuário no backend
   const handleCadastrarUsuario = async () => {
     if (!novoUsuario.trim() || !novaSenha.trim()) {
       Alert.alert('Aviso', 'Preencha o nome de usuário e a senha.');
@@ -30,7 +31,7 @@ export default function CadUserScreen() {
     setCarregando(true);
 
     try {
-      // Envia os dados no formato form-data conforme configurado na API Flask
+// Envia os dados no formato form-data conforme configurado na API Flask
       const formData = new FormData();
       formData.append('usuario', novoUsuario);
       formData.append('senha', novaSenha);

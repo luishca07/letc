@@ -7,10 +7,11 @@ app.use(cors());
 app.use(express.json());
 
 const PORT = 5001;
+// Configurar a instância do SDK da Groq utilizando a chave de API
 const groq = new Groq({ 
   apiKey: "" 
 });
-
+// Enviar a mensagem do usuário para a inteligência artificial da Groq e obter a resposta do modelo
 async function getGroqChatCompletion(message) {
   return await groq.chat.completions.create({
     messages: [
@@ -22,7 +23,7 @@ async function getGroqChatCompletion(message) {
     model: "openai/gpt-oss-20b",
   });
 }
-
+// Criar a rota POST api/chat para receber as mensagens do cliente e consultar o chat da IA
 app.post("/api/chat", async (req, res) => {
   const { message } = req.body;
 

@@ -9,7 +9,7 @@ import {
   Platform,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-
+// Definir a estrutura tipagem dos dados que formam um item do histórico
 interface ItemHistorico {
   nome_produto?: string;
   quantidade?: number;
@@ -18,12 +18,13 @@ interface ItemHistorico {
 }
 
 export default function HistoricoScreen() {
+// Criar estados para guardar a lista do histórico e o status de carregamento
   const [historico, setHistorico] = useState<ItemHistorico[]>([]);
   const [carregando, setCarregando] = useState(true);
 
   const router = useRouter();
   const API_URL = 'http://10.154.20.134:5000';
-
+// Buscar os dados do histórico de movimentações diretamente da API no backend
   const carregarHistorico = async () => {
     setCarregando(true);
     try {
@@ -36,7 +37,7 @@ export default function HistoricoScreen() {
       setCarregando(false);
     }
   };
-
+// Executar a busca do histórico automaticamente assim que a tela for aberta
   useEffect(() => {
     carregarHistorico();
   }, []);
