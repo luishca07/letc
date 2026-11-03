@@ -7,26 +7,26 @@ import datetime
 from flask_bcrypt import Bcrypt
 import csv
 import io
-
+# Cria a instância principal do aplicativo Flask que vai rodar o nosso servidor
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 app.secret_key = os.getenv("SECRET_KEY", "luis")
 
-
+# Conectar a aplicação ao banco de dados MySQL
 def conectar_bd():
     return mysql.connector.connect(
-        host=os.getenv('DB_HOST', 'localhost'),  # Mude aqui de 'db_almoxarifado' para 'localhost'
+        host=os.getenv('DB_HOST', 'localhost'),  # Mude de 'db_almoxarifado' para 'localhost'
         user='root',
-        password=os.getenv('DB_PASSWORD', ''), # Certifique-se de que a senha é a mesma do seu MySQL local
+        password=os.getenv('DB_PASSWORD', ''), # Veja se a senha é a mesma do seu MySQL local
         database='almoxarifado'
     )
 
 
 bcrypt = Bcrypt(app)
-
+# Definir onde as imagens serão salvas
 PASTA_UPLOAD = os.path.join('static', 'imagens_produtos')
 app.config['UPLOAD_FOLDER'] = PASTA_UPLOAD
-
+# Define uma rota no servidor para a página de login
 @app.route('/pag.login/login.html', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
@@ -53,7 +53,7 @@ def login():
             return render_template('/pag.login/login.html', erro=True)
 
     return render_template('/pag.login/login.html')
-
+# Gerenciar o login e a autenticação de administradores
 @app.route('/adm', methods=['POST', 'GET'])
 def adm():
     if request.method == 'POST':
@@ -81,12 +81,13 @@ def adm():
         return render_template('/pag.adm/adm.html', erro=True)
 
     return render_template('/pag.adm/adm.html')
-
+# Deslogar o usuário limpando os dados da sessão atual
 @app.route('/logout')
 def logout():
     session.clear()  # Limpa os dados de sessão ao sair
     return redirect('/pag.login/login.html')
-
+# Exibir a página de histórico com todas as movimentações do estoque
+@app.route('/historico')
 @app.route('/historico')
 def historico():
     conexao = conectar_bd()
@@ -105,11 +106,11 @@ def historico():
     conexao.close()
 
     return render_template('/pag.historico/historico.html', resultado=dados_historico)
-
+# Cadastrar novos produtos no estoque
 @app.route('/cadastro', methods=['POST', 'GET'])
 
 def cadastro():
-    # Trava do Admin
+    # Trava de segurança do Admin
     if not session.get('eh_admin'):
         return redirect('/estoque')
 
@@ -123,7 +124,7 @@ def cadastro():
         if arquivo_imagem and arquivo_imagem.filename != '':
             nome_arquivo = arquivo_imagem.filename
             
-            # Garante que a pasta de destino existe (cria se não existir)
+            # Garantir que a pasta de destino existe 
             os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
             
             caminho_completo = os.path.join(app.config['UPLOAD_FOLDER'], nome_arquivo)
@@ -131,7 +132,7 @@ def cadastro():
         else:
             nome_arquivo = 'sem_foto.png'
         
-        # --- ESTA PARTE FICA FORA DO IF/ELSE (alinhada com o 'if') ---
+        
         cursor = conexao.cursor()
         query = """
             INSERT INTO estoque (nome, qntd, tipo, imagem) 
@@ -145,7 +146,7 @@ def cadastro():
         print("Item e foto cadastrados com sucesso!")
 
     return render_template('/pag.cadastro/cad.html') 
-
+# Exibir a página principal listando os itens disponíveis no estoque
 @app.route('/estoque', methods=['GET', 'POST'])
 def estoque():
     if 'usuario_logado' not in session:
@@ -162,7 +163,7 @@ def estoque():
     conexao.close()
 
     return render_template('/pag.estoque/consultaestoque.html', resultado=resultado_banco)
-
+# Registrar a retirada/solicitação de itens do estoque diminuindo a quantidade
 @app.route('/solicitacoes', methods=['GET', 'POST'])
 def solicitacoes():
     if request.method == 'POST':
@@ -197,7 +198,7 @@ def solicitacoes():
         conexao.close()
 
     return render_template('pag.solicitacoes/index.html')
-
+# Registrar a devolução de itens ao estoque aumentando a quantidade
 @app.route('/devolver', methods=['GET', 'POST'])
 def devolver():
     if request.method == 'POST':
@@ -235,7 +236,7 @@ def devolver():
         conexao.close()
 
     return render_template('pag.devolver/devolver.html')
-
+# Cadastrar novos usuários comuns no sistema
 @app.route('/caduser', methods=['GET', 'POST'])
 def caduser():
 
@@ -263,7 +264,7 @@ def caduser():
 
 
     return render_template('/pag.caduser/caduser.html')
-
+# Apagar todos os dados da tabela de estoque de uma só vez
 @app.route('/estoque/zerar', methods=['POST'])
 def zerar_estoque():
     # Trava do Admin
@@ -281,7 +282,7 @@ def zerar_estoque():
     
     print("Banco de dados de estoque zerado com sucesso!")
     return redirect('/estoque')
-
+# Exportar os dados do estoque em formato de arquivo CSV
 @app.route('/estoque/exportar', methods=['GET'])
 def exportar_csv():
     conexao = conectar_bd()
@@ -306,7 +307,7 @@ def exportar_csv():
         mimetype="text/csv",
         headers={"Content-Disposition": "attachment; filename=backup_estoque.csv"}
     )
-
+# Importar produtos por meio de um arquivo CSV
 @app.route('/estoque/importar', methods=['POST'])
 def importar_csv():
 
@@ -349,11 +350,11 @@ def importar_csv():
         print("Produtos importados com sucesso!")
         
     return redirect('/estoque')
-
+# Renderizar a página da IA
 @app.route('/vampetinhIA', methods=['GET', 'POST'])
 def vampetinhIA():
     return render_template('pag.vampetinha/vampetinhIA.html')
-
+# API que adiciona um novo item ao estoque via JSON
 @app.route("/api/estoque", methods=["POST"])
 def adicionar_item():
     try:
@@ -391,7 +392,7 @@ def adicionar_item():
         return jsonify({"erro": str(e)}), 500
     
     
-
+# API que retorna a lista de todos os itens do estoque em JSON
 @app.route("/api/estoque", methods=["GET"])
 def listar_estoque():
     try:
@@ -413,7 +414,7 @@ def listar_estoque():
     except Exception as e:
         return jsonify({"erro": str(e)}), 500
 
-
+# API que remove um item específico do estoque pelo ID
 @app.route("/api/estoque/<int:item_id>", methods=["DELETE"])
 def remover_item(item_id):
     try:
@@ -444,7 +445,7 @@ def remover_item(item_id):
 
     except Exception as e:
         return jsonify({"erro": str(e)}), 500
-    
+# API que retorna o histórico de movimentações em JSON    
 @app.route("/api/historico", methods=["GET"])
 def api_historico():
     try:
@@ -476,7 +477,7 @@ def api_historico():
 
     except Exception as e:
         return jsonify({"erro": str(e)}), 500
-    
+# API que cadastra um novo item    
 @app.route("/api/cadastrar", methods=["POST"])
 def api_cadastrar():
     try:
@@ -532,7 +533,7 @@ def api_cadastrar():
         return jsonify({
             "erro": str(e)
         }), 500
-
+# API que cadastra um novo usuário 
 @app.route("/api/cadastrar-usuario", methods=["POST"])
 def api_cadastrar_usuario():
     try:
@@ -569,7 +570,7 @@ def api_cadastrar_usuario():
         return jsonify({
             "erro": str(e)
         }), 500
-
+# API que processa a solicitação/retirada de itens do estoque
 @app.route("/api/estoque/solicitar/<int:item_id>", methods=["PUT"])
 def api_solicitar_item(item_id):
     try:
@@ -624,7 +625,7 @@ def api_solicitar_item(item_id):
     except Exception as e:
         return jsonify({"erro": str(e)}), 500
 
-
+# API que processa a devolução de itens ao estoque
 @app.route("/api/estoque/devolver/<int:item_id>", methods=["PUT"])
 def api_devolver_item(item_id):
     try:
@@ -672,7 +673,7 @@ def api_devolver_item(item_id):
 
     except Exception as e:
         return jsonify({"erro": str(e)}), 500
-
+# API que valida o login de um usuário comum
 @app.route("/api/login", methods=["POST"])
 def api_login():
     try:
@@ -704,10 +705,10 @@ def api_login():
 
     except Exception as e:
         return jsonify({"erro": str(e)}), 500
-    
+# API que valida o login de um administrador com o bcrypt    
 @app.route('/api/adm', methods=['POST', 'OPTIONS'])
 def api_adm_login():
-    # Responde imediatamente à requisição OPTIONS do navegador (Preflight CORS)
+    # Responde imediatamente à requisição
     if request.method == 'OPTIONS':
         return jsonify({}), 200
     
@@ -749,6 +750,6 @@ def api_adm_login():
 
     except Exception as e:
         return jsonify({"erro": str(e)}), 500
-    
+# Iniciar e rodar o servidor web da aplicação flask na porta 5000    
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5000)
