@@ -751,5 +751,17 @@ def api_adm_login():
     except Exception as e:
         return jsonify({"erro": str(e)}), 500
 # Iniciar e rodar o servidor web da aplicação flask na porta 5000    
+
+@app.route('/api/chat', methods=['POST'])
+def chat():
+    dados = request.get_json()
+    mensagem = dados.get('message')
+    
+    if not mensagem:
+        return jsonify({"error": "Mensagem não fornecida!"}), 400
+        
+    # Lógica de integração com a IA (ou resposta simulada por enquanto)
+    return jsonify({"response": f"Resposta da IA para: {mensagem}"}), 200
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5000)
