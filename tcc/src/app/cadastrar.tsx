@@ -10,7 +10,7 @@ export default function CadastrarScreen() {
 // Controlar a navegação entre as telas do aplicativo 
   const router = useRouter();
 
-  const API_URL = 'http://10.154.20.134:5000';
+  const API_URL = 'http://10.154.20.108:5000';
 // Validar os campos e enviar os dados preenchidos para a API cadastrar o item
   const handleCadastrar = async () => {
     if (!nome || !qntd || !tipo) {

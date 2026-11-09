@@ -23,7 +23,7 @@ export default function HistoricoScreen() {
   const [carregando, setCarregando] = useState(true);
 
   const router = useRouter();
-  const API_URL = 'http://10.154.20.134:5000';
+  const API_URL = 'http://10.154.20.108:5000';
 // Buscar os dados do histórico de movimentações diretamente da API no backend
   const carregarHistorico = async () => {
     setCarregando(true);

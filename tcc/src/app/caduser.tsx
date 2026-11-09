@@ -20,7 +20,7 @@ export default function CadUserScreen() {
   const [carregando, setCarregando] = useState(false);
 
   const router = useRouter();
-  const API_URL = 'http://10.154.20.134:5000';
+  const API_URL = 'http://10.154.20.108:5000';
 // Validar os campos e enviar a requisição POST para cadastrar o usuário no backend
   const handleCadastrarUsuario = async () => {
     if (!novoUsuario.trim() || !novaSenha.trim()) {

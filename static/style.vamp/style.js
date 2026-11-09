@@ -1,7 +1,7 @@
 
 
 
-const GROQ_API_KEY = ""; 
+const GROQ_API_KEY = "por a chave"; 
 // Consultar a inteligência artificial da Groq com a dúvida do usuário sobre ferramentas ou itens do almoxarifado
 async function vamp() {
   const perguntaInput = document.getElementById("perguntaInput");

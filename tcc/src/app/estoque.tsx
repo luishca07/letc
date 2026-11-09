@@ -23,7 +23,7 @@ export default function EstoqueScreen() {
   const [quantidadesSolicitadas, setQuantidadesSolicitadas] = useState({});
 
   // Endereço do servidor Flask
-  const API_URL = 'http://10.154.20.134:5000';
+  const API_URL = 'http://10.154.20.108:5000';
 
   useEffect(() => {
     async function verificarPermissaoAdmin() {

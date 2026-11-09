@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, Response, jsonify, send_from_directory
 from flask import Flask, render_template, request, redirect, session, Response
+from groq import Groq
 from flask_cors import CORS
 import mysql.connector
 import os
@@ -7,9 +8,12 @@ import datetime
 from flask_bcrypt import Bcrypt
 import csv
 import io
+import requests
 # Cria a instância principal do aplicativo Flask que vai rodar o nosso servidor
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
+GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+client = Groq(api_key="por a chave")
 app.secret_key = os.getenv("SECRET_KEY", "luis")
 
 # Conectar a aplicação ao banco de dados MySQL
@@ -755,13 +759,36 @@ def api_adm_login():
 @app.route('/api/chat', methods=['POST'])
 def chat():
     dados = request.get_json()
-    mensagem = dados.get('message')
+    mensagem = dados.get('message', '')
     
     if not mensagem:
         return jsonify({"error": "Mensagem não fornecida!"}), 400
         
-    # Lógica de integração com a IA (ou resposta simulada por enquanto)
-    return jsonify({"response": f"Resposta da IA para: {mensagem}"}), 200
+    headers = {
+        "Authorization": f"Bearer {'por chave secreta'}",
+        "Content-Type": "application/json"
+    }
+    
+    payload = {
+        "model": "openai/gpt-oss-120b",
+        "messages": [
+            {
+                "role": "user",
+                "content": mensagem
+            }
+        ]
+    }
+    
+    try:
+        response = requests.post(GROQ_URL, json=payload, headers=headers)
+        if response.status_code == 200:
+            resultado = response.json()
+            texto_resposta = resultado["choices"][0]["message"]["content"]
+            return jsonify({"response": texto_resposta}), 200
+        else:
+            return jsonify({"error": response.text}), response.status_code
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5000)

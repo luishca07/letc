@@ -1,6 +1,9 @@
 npm install expo
+npm install -g npm@11.21.2
 npx expo login
+lI9KXEGKAmBZSEXZpB4B4iyDlVkRplyLRv0ZpfMw
 npx expo start
+
 npx expo install --fix --legacy-peer-deps
 
 

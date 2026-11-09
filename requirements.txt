@@ -2,3 +2,5 @@ flask
 mysql-connector-python
 flask-bcrypt
 flask-cors
+requests
+groq
