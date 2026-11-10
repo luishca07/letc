@@ -1,0 +1,12 @@
+nome;qntd;tipo;imagem
+Martelo;22;Ferramenta;martelo.jfif
+Prego;250;Elemento de fixação;prego.jfif
+Alicate;15;Ferramenta;alicate.jfif
+Fios de cobre;200;Condutor elétrico;fio.jfif
+Notebook;30;Computador portátil;pc.jfif
+Chave phillips;25;Ferramenta;phillips.jfif
+Parafuso;170;Elemento de fixação;parafuso.jfif
+Parafusadeira;17;Ferramenta;parafusadeira.jfif
+Aço inox;35;Liga metálica;inox.jfif
+Óculos;60;EPI;oculos.jfif
+Par de luvas;80;EPI;luva.jfif
