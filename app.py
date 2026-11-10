@@ -753,8 +753,7 @@ def api_adm_login():
         return jsonify({"erro": "Usuário ou senha de administrador inválidos"}), 401
 
     except Exception as e:
-        return jsonify({"erro": str(e)}), 500
-# Iniciar e rodar o servidor web da aplicação flask na porta 5000    
+        return jsonify({"erro": str(e)}), 500   
 
 @app.route('/api/chat', methods=['POST'])
 def chat():
