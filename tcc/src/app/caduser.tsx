@@ -12,6 +12,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+//imports
 
 export default function CadUserScreen() {
 // Criar os estados que guardam o nome de usuário, a senha e o status de carregamento
@@ -31,7 +32,7 @@ export default function CadUserScreen() {
     setCarregando(true);
 
     try {
-// Envia os dados no formato form-data conforme configurado na API Flask
+// Envia os dados no formato form-data conforme configurado na API Flask, utilizando POST
       const formData = new FormData();
       formData.append('usuario', novoUsuario);
       formData.append('senha', novaSenha);
@@ -41,6 +42,7 @@ export default function CadUserScreen() {
         body: formData,
       });
 
+      //verificação se o codigo está certo
       if (response.ok) {
         Alert.alert('Sucesso', 'Novo usuário cadastrado com sucesso!');
         setNovoUsuario('');
@@ -63,6 +65,8 @@ export default function CadUserScreen() {
     }
   };
 
+
+  //estrutura visual da tela
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

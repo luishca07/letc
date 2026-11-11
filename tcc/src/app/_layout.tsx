@@ -1,4 +1,6 @@
 import { Stack } from 'expo-router';
+//Stack da biblioteca Expo Router
+
 
 export default function RootLayout() {
   return (
@@ -6,6 +8,7 @@ export default function RootLayout() {
       screenOptions={{
         headerShown: false,
       }}
+      //telas do app
     >
       <Stack.Screen name="index" />
       <Stack.Screen name="estoque" />
